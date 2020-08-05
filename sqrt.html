@@ -1,0 +1,76 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Решение квадратных уравнений</title>
+    <style>
+        input {
+            width: 35px;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="a" />x<sup>2</sup>+<input type="text" id="b" />x+<input type="text" id="c" /> = 0<br><br>
+    <button onClick="ans()">Получить Корни</button>
+    <p id="answ"></p>
+    <script type="text/javascript">
+        function getDecimal(num) {
+            var result;
+            var initialNum = Math.abs(num);
+            var roundedNum = Math.round(initialNum);
+
+            if (roundedNum > initialNum) {
+                result = roundedNum - initialNum - 1;
+                result = Math.abs(result);
+                result = +result.toFixed(10);
+            } else {
+                result = initialNum - roundedNum;
+                result = +result.toFixed(10);
+            }
+            return result;
+        }
+
+        function ans() {
+            let answ = document.getElementById('answ')
+            let a = document.getElementById("a").value;
+            if (a == "") {
+                a = 1
+            }
+            let b = document.getElementById("b").value;
+            if (b == "") {
+                b = 1
+            }
+            let c = document.getElementById("c").value;
+            let d = b ** 2 - 4 * a * c;
+            answ.innerHTML = "D = " + b + "<sup>2</sup> - 4*" + a + "*" + c + "=" + d + "<br>";
+            console.log("D = " + d)
+            if (d > 0) {
+                let x1 = (-1 * b + Math.sqrt(d)) / (2 * a);
+                let x2 = (-1 * b - Math.sqrt(d)) / (2 * a);
+                if (getDecimal(x1) > 0) {
+                    x1 = -1 * b + Math.sqrt(d) + "/" + 2 * a;
+                    if (getDecimal((-1 * b + Math.sqrt(d))) > 0) {
+                        x1 = "-" + b + " + &#8730;" + d + "/" + 2 * a;
+                    }
+                }
+                if (getDecimal(x2) > 0) {
+                    x2 = -1 * b - Math.sqrt(d) + "/" + 2 * a;
+                    if (getDecimal((-1 * b - Math.sqrt(d))) > 0) {
+                        x2 = "-" + b + " - &#8730;" + d + "/" + 2 * a;
+                    }
+                }
+                answ.innerHTML += "D>0, поэтому<br> x1 = " + b + " + &#8730;" + d + "/" + "2 * " + a + "<br>" + "x2 = " + b + " - &#8730;" + d + "/" + "2 * " + a + "<br>Корень 1: " + x1 + "</br>Корень 2: " + x2;
+            }
+            if (d < 0) {
+                answ.innerHTML += "D<0, поэтому Нет корней";
+            }
+            if (d == 0) {
+                var x = (-1 * b) / (2 * a)
+                answ.innerHTML += "D=0, поэтому<br> x = " + -1 * b + "/" + "2 * " + a + "<br>Корень: " + x
+            }
+        }
+    </script>
+</body>
+
+</html>
